@@ -29,36 +29,23 @@ import com.example.authentification.R
 import com.example.authentification.ui.theme.Purple500
 
 @Composable
-fun LoginPage(navController: NavController){
-   val context = LocalContext.current
-   val scaffoldState = rememberScaffoldState()
-   val emailVal= remember { mutableStateOf("") }
-   val passwordVal = remember { mutableStateOf("") }
-   val passwordVisibility = remember { mutableStateOf(false) }
+fun ResetPassword(navController: NavController){
+    val context = LocalContext.current
+    val scaffoldState = rememberScaffoldState()
+    val emailVal= remember { mutableStateOf("") }
 
     Box(modifier =
     Modifier
         .fillMaxSize()
         .background(Color.White),
-            contentAlignment = Alignment.Center
+        contentAlignment = Alignment.BottomCenter,
     ) {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center,
             modifier = Modifier.fillMaxWidth()
         ) {
-            //image container
-            Box(modifier = Modifier
-                .background(Color.White),
-                contentAlignment = Alignment.TopCenter) {
-                Image(modifier = Modifier
-                    .width(400.dp)
-                    .height(350.dp),
-                    painter = painterResource(id = com.example.authentification.R.drawable.login),
-                    contentDescription="Login Image.",
-                    contentScale = ContentScale.Fit)
-            }
-            Spacer(modifier = Modifier.padding(20.dp))
+
             Scaffold(modifier = Modifier
                 .fillMaxSize(),
                 scaffoldState=scaffoldState,) {
@@ -71,15 +58,16 @@ fun LoginPage(navController: NavController){
                         .padding(10.dp)
                 ) {
                     Text(
-                        text = "Sign In",
+                        text = "Reset your password",
                         fontSize = 30.sp,
                         fontWeight = FontWeight.Bold,
                         color = Color.Black
                     )
-                    
+
                     Spacer(modifier = Modifier.padding(20.dp))
 
-                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                    Column(horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.Center) {
 
                         //*** EMAIL ***
                         OutlinedTextField(
@@ -92,39 +80,6 @@ fun LoginPage(navController: NavController){
                             colors = TextFieldDefaults.outlinedTextFieldColors(unfocusedBorderColor = Color.Black, textColor = Color.Black, focusedBorderColor = colorResource(id = com.example.authentification.R.color.purple_500))
                         )
 
-                        //*** PASSWORD ***
-                        OutlinedTextField(
-                            value = passwordVal.value,
-                            onValueChange = { passwordVal.value = it },
-                            colors = TextFieldDefaults.outlinedTextFieldColors(unfocusedBorderColor = Color.Black, textColor = Color.Black, focusedBorderColor = colorResource(id = com.example.authentification.R.color.purple_500)
-                            ),
-                            trailingIcon = {
-                                IconButton(
-                                    onClick = { passwordVisibility.value = !passwordVisibility.value })
-                                {
-                                 Icon(
-                                     painter = painterResource(id = R.drawable.ic_baseline_remove_red_eye_24),
-                                     contentDescription = "Toggle password",
-                                     tint = if(passwordVisibility.value) Purple500 else Color.Gray
-                                     )
-                                }
-                            },
-                            label = { Text(
-                                text = "Password",
-                                color = Color.Black
-                            )},
-                            placeholder = { Text(
-                                text = "Password",
-                                color=Color.DarkGray
-                            )},
-                            singleLine = true,
-                            visualTransformation = if (passwordVisibility.value)
-                                VisualTransformation.None
-                                    else
-                                        PasswordVisualTransformation(),
-                            modifier = Modifier.fillMaxWidth(0.8f)
-                        )
-                        
                         Spacer(modifier = Modifier.padding(20.dp))
 
                         //*** BUTTON ***
@@ -132,21 +87,14 @@ fun LoginPage(navController: NavController){
                             onClick = { when{
                                 emailVal.value.isEmpty() -> {
                                     Toast.makeText(
-                                        context,"Please enter a valid email adress",
-                                        Toast.LENGTH_SHORT
-                                    ).show()
-                                }
-
-                                passwordVal.value.isEmpty() -> {
-                                    Toast.makeText(
-                                        context,"Please enter your password",
+                                        context,"Please enter your email adress",
                                         Toast.LENGTH_SHORT
                                     ).show()
                                 }
 
                                 else -> {
                                     Toast.makeText(
-                                        context,"Logged in successfully, Welcome !",
+                                        context,"Check your email for a verification message",
                                         Toast.LENGTH_SHORT
                                     ).show()
                                 }
@@ -155,20 +103,12 @@ fun LoginPage(navController: NavController){
                             modifier = Modifier
                                 .fillMaxWidth(0.8f)
                                 .height(50.dp)
-                            ) {
-                            Text(text = "Sign In", fontSize = 23.sp, fontWeight = FontWeight.Bold, color = Color.White)
+                        ) {
+                            Text(text = "Reset", fontSize = 23.sp, fontWeight = FontWeight.Bold, color = Color.White)
                         }
 
                         Spacer(modifier = Modifier.padding(20.dp))
-                        
-                        Text(text = "Create an account", modifier = Modifier
-                            .clickable { navController.navigate("register") })
 
-                        Spacer(modifier = Modifier.padding(20.dp))
-
-                        Text(
-                            text = "Forgot your password ?",
-                        modifier = Modifier.clickable { navController.navigate("resetpassword") } )
                     }
                 }
             }

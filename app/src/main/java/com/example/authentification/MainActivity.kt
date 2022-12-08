@@ -15,6 +15,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.authentification.ui.theme.AuthentificationTheme
 import com.example.authentification.view.LoginPage
+import com.example.authentification.view.ResetPassword
 import com.example.authentification.view.Signup
 
 class MainActivity : ComponentActivity() {
@@ -37,6 +38,7 @@ fun NavigatePage() {
         builder = {
             composable("login", content = { LoginPage(navController = navController)})
             composable("register", content = { Signup(navController = navController) })
+            composable("resetpassword", content = { ResetPassword(navController=navController)})
         }
     )
 }
